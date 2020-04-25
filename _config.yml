@@ -1,1 +1,10 @@
-theme: jekyll-theme-minimal
+title: Jongy's blog
+
+baseurl: ""
+url: ""
+github_username: Jongy
+
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed

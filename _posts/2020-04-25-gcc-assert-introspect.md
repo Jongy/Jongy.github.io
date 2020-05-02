@@ -64,7 +64,8 @@ in `py.test`. The author (who wrote the feature in `py.test`) explains how subex
 can be displayed by modifying the AST (Abstract Syntax Tree) of your test code.
 
 *If you're not sure what's AST, [this][ast-image] image from Wikipedia will help. It shows the AST of
-a simple piece of code, written in its description.*
+a simple piece of code, written in its description. You can also take a look in [AST explorer][ast-explorer]
+which provides online AST parsing of many languages (doesn't have C though)*
 
 Python, being a dynamic language, allows you to modify the AST of modules during the loading process.
 `py.test` uses this to dismantle your `assert`s into smaller code pieces that are executed one by one. If
@@ -146,6 +147,11 @@ that you are required to be a part of the compiler, or a plugin of it.
 *Actually, Rust is the only language I know that lets **your** code intervene in it's own compilation process,
 via procedural macros.*
 
+*Update: Reddit comments mentioned [Catch2][catch2], a C++ test framework which (among others) exploits
+operator precedence and overloading. Ultimately you have a macro `REQUIRE(x == 5)` and Catch2 can "parse" this
+expression to yeild similar results with respect to what I'm trying to achieve here.
+Not exactly AST parsing, but nonetheless it's very cool so I thought it's worth to mention here.*
+
 We're in C, so... a GCC plugin it is.
 
 ![](/assets/img/plugin-vs-macros.jpeg?raw=true "And thanks to @sapir for that")
@@ -216,7 +222,7 @@ I think we know enough to start, let's get some code running. Start by setting u
 Some distros require the installation of a "GCC plugin dev" package (e.g Ubuntu), in others you get it in your
 standard GCC installation (e.g Arch)
 
-For Ubutnu:
+For Ubuntu:
 ```bash
 # You'll need gcc-X-plugin-dev, where X is your GCC major. check it with gcc --version.
 # For Ubuntu 18.04 that will be:
@@ -508,3 +514,5 @@ developers can use them.
 [gcc-understanding-trees]: https://gcc.gnu.org/wiki/GenericAPI
 [gcc-tiny]: https://thinkingeek.com/gcc-tiny/
 [playing-with-gcc-plugins]: https://rwmj.wordpress.com/2016/02/24/playing-with-gcc-plugins/
+[ast-explorer]: https://astexplorer.net/
+[catch2]: https://github.com/catchorg/Catch2

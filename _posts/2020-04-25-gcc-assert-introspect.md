@@ -475,8 +475,8 @@ plugin development for everyone. During my career as a developer I have spent ma
 for the right compiler flag for a task, etc. Gaining insight in the internals, being able to extend C & GCC with features I
 couldn't have earlier - well, it was very nice, and I think every developer should try it sometime :)
 
-In the next part, we'll talk about the assert rewriting logic itself, and how to embed it in the AST via the
-plugin. We'll also dive deeper into GCC and GENERIC representation.
+In the [next part]({% post_url 2020-05-15-gcc-assert-introspect-2 %}), we'll talk about the assert rewriting logic itself, and
+how to embed it in the AST via the plugin. We'll also dive deeper into GCC and GENERIC representation.
 
 ## GCC Plugin Development Resources
 

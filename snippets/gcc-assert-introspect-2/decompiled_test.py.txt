@@ -1,0 +1,38 @@
+# uncompyle6 version 3.6.7
+# Python bytecode 3.6 (3379)
+# Decompiled from: Python 3.6.10 (default, Feb 26 2020, 16:13:33)
+# [GCC 8.3.0]
+# Embedded file name: /test.py
+# Size of source mod 2**32: 87 bytes
+import builtins as @py_builtins, _pytest.assertion.rewrite as @pytest_ar
+
+def func(n):
+    return n + 3
+
+
+def test_a():
+    @py_assert1 = []
+    @py_assert3 = 4
+    @py_assert5 = func(@py_assert3)
+    @py_assert8 = 5
+    @py_assert7 = @py_assert5 == @py_assert8
+    @py_assert0 = @py_assert7
+    if @py_assert7:
+        @py_assert14 = 5
+        @py_assert16 = func(@py_assert14)
+        @py_assert19 = 8
+        @py_assert18 = @py_assert16 == @py_assert19
+        @py_assert0 = @py_assert18
+    if not @py_assert0:
+        @py_format10 = @pytest_ar._call_reprcompare(('==', ), (@py_assert7,), ('%(py6)s\n{%(py6)s = %(py2)s(%(py4)s)\n} == %(py9)s', ), (@py_assert5, @py_assert8)) % {'py2':@pytest_ar._saferepr(func) if 'func' in @py_builtins.locals() or @pytest_ar._should_repr_global_name(func) else 'func',  'py4':@pytest_ar._saferepr(@py_assert3),  'py6':@pytest_ar._saferepr(@py_assert5),  'py9':@pytest_ar._saferepr(@py_assert8)}
+        @py_format12 = '%(py11)s' % {'py11': @py_format10}
+        @py_assert1.append(@py_format12)
+        if @py_assert7:
+            @py_format21 = @pytest_ar._call_reprcompare(('==', ), (@py_assert18,), ('%(py17)s\n{%(py17)s = %(py13)s(%(py15)s)\n} == %(py20)s', ), (@py_assert16, @py_assert19)) % {'py13':@pytest_ar._saferepr(func) if 'func' in @py_builtins.locals() or @pytest_ar._should_repr_global_name(func) else 'func',  'py15':@pytest_ar._saferepr(@py_assert14),  'py17':@pytest_ar._saferepr(@py_assert16),  'py20':@pytest_ar._saferepr(@py_assert19)}
+            @py_format23 = '%(py22)s' % {'py22': @py_format21}
+            @py_assert1.append(@py_format23)
+        @py_format24 = @pytest_ar._format_boolop(@py_assert1, 0) % {}
+        @py_format26 = 'assert %(py25)s' % {'py25': @py_format24}
+        raise AssertionError(@pytest_ar._format_explanation(@py_format26))
+    @py_assert0 = @py_assert1 = @py_assert3 = @py_assert5 = @py_assert7 = @py_assert8 = @py_assert14 = @py_assert16 = @py_assert18 = @py_assert19 = None
+# okay decompiling __pycache__/test.cpython-36-pytest-5.4.1.pyc

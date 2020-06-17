@@ -15,7 +15,7 @@ The plugin itself is available [here][gcc-assert-introspect].
 A few weeks ago I started working on a small side project in C, nothing too fancy. As with all new
 codebases, it was prone to many structural changes, API refactors etc. So I tried to add
 as many asserts as possible, and also wrote some basic C tests. *When writing lots
-of new code, I try to have tests written ASAP, to and fill the code with asserts since they help in quickly
+of new code, I try to have tests written ASAP, and fill the code with asserts since they help in quickly
 catching problems common to a developing codebase (like missed refactors / renames, misused APIs, ...).*
 
 One thing I dislike about those asserts it that watching them fail usually doesn't provide you with
@@ -38,7 +38,7 @@ code just so I could know what the problem was.
 Back in that side project, after a session of about 10 "replace-assert-with-printf-then-rerun" changes,
 I thought there must be something I could do to improve it.
 
-Then `py.test` popped into my mind. `py.test` is one the well-known Python test frameworks, and one of
+Then `py.test` popped into my mind. `py.test` is one of the most well-known Python test frameworks, and one of
 the features I like in it is that you write your tests logic using plain `assert`s, but unlike the standard
 Python `assert` failure (which raises an empty `AssertionError`), `py.test` prints a very elaborated
 assert failure message. For example, the following assert:
@@ -93,7 +93,7 @@ else:
 
 As you can see, even for simple expressions it quickly becomes complex. For example, if any of the subexpressions
 has side-effects, it must be stored in a temporary variable (like `_tmp`) so we don't invoke
-those side-effects multiple times. In the real world it's gets even more complicated ;)
+those side-effects multiple times. In the real world it gets even more complicated ;)
 
 Lucky for us, this conversion is entirely automatic!
 `py.test` takes care of everything, and we get to write human-readable assert expressions.
@@ -158,7 +158,7 @@ We're in C, so... a GCC plugin it is.
 
 ## GCC plugins intro
 
-GCC provides [an API for plugins][plugins-api]. Plugins are programs built once, then loaded when invoking GCC. The can
+GCC provides [an API for plugins][plugins-api]. Plugins are programs built once, then loaded when invoking GCC. They can
 modify its behvaior, add new features, etc. More specifically, your plugin can register callbacks which GCC
 will call in different steps during compilation, allowing the plugin to mess around with GCC's internal objects.
 

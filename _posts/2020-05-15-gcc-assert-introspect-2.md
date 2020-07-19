@@ -8,7 +8,7 @@ categories:
 This post continues from where we stopped in [part 1]({% post_url 2020-04-25-gcc-assert-introspect %}) (to recall - last
 thing we've done was a simple modification of a single node in the AST, and we saw how it reflected in the result)
 
-Today we'll build the logic of assert rewriting and also diver deeper into GCC's API. We'll try to improve typical
+Today we'll build the logic of assert rewriting and also dive deeper into GCC's API. We'll try to improve typical
 assert messages like:
 
 <img src="/assets/img/regular-assert.png"/>
@@ -113,9 +113,9 @@ the `assert` (see the `({ })` wrapping in the generated code?).
 
 Now, the body of that last bind is the core logic. It is a `COND_EXPR`, which represents an `if`, or a ternary operator.
 It has 3 operands: the condition, an expression to be evaluated if the test passes (`if { ... }` clause) and
-an expression to to be evaluated if the test fails (`else { ... }` clause).
+an expression to be evaluated if the test fails (`else { ... }` clause).
 
-* The condition is is an `EQ_EXPR`, which tests for equality between its 2 operands: our `PARM_DECL` of `n`, and the
+* The condition is an `EQ_EXPR`, which tests for equality between its 2 operands: our `PARM_DECL` of `n`, and the
 constant `42`.
 * The `if { ... }` clause is a `NOP_EXPR` whose operand is the constant `0`. `NOP_EXPR`s represent conversions which
 don't require code generation (e.g `int *p; (char*)p;`). This `NOP_EXPR` has type `void_type`, so it's a `void` cast;
@@ -155,7 +155,7 @@ static bool is_assert_fail_cond_expr(tree expr) {
         TREE_CODE(expr_else) == CALL_EXPR &&
         TREE_CODE(CALL_EXPR_FN(expr_else)) == ADDR_EXPR &&
         TREE_CODE(TREE_OPERAND(CALL_EXPR_FN(expr_else), 0)) == FUNCTION_DECL &&
-        // IDENTIFIER_POINTER(DECL_NAME(...)) gets the (null-terminated) name string from of declaration.
+        // IDENTIFIER_POINTER(DECL_NAME(...)) gets the (null-terminated) name string from a declaration.
         0 == strcmp("__assert_fail", IDENTIFIER_POINTER(DECL_NAME(TREE_OPERAND(CALL_EXPR_FN(expr_else), 0))))
     );
 }
@@ -776,7 +776,7 @@ from some examples I found in the C frontend. Apparently I've been using it wron
 
 Finally I [fixed it][decl_initial_fix] by using a `MODIFY_EXPR` to initialize the variable.
 
-When I told my friend @sapir about it "bug", he replied with this:
+When I told my friend @sapir about this "bug", he replied with this:
 
 <img src="/assets/img/runtime-compiler-errors.jpeg" width="400"/>
 
@@ -835,7 +835,7 @@ Ran with it and got a full stacktrace! Using `backtrace`, top of the stack was:
 0x00000000008d12a7 in argument_parser::check_argument_type
 ```
 
-GCC was didn't have source line information (well, I built it this GCC I've been using, so blame on me):
+GCC didn't have source line information (well, I built this GCC I've been using, so blame on me):
 ```bash
 $ addr2line -e ~/opt/gcc-9.1.0/bin/gcc 0x00000000008d12a7
 ??:0
@@ -890,7 +890,7 @@ The issue got a reply pretty fast. One of the GCC developers said it's not a bug
 
 Moral of the story? Try to use stuff from `tree.h` only. GCC has no explicit distinction between "plugin API", "C frontend API"
 and other pieces of code. You can trust stuff from `tree.h` to be valid in virtually all cases; if you use any APIs declared in
-other files - make sure to they are also used somewhere in the same frontend you're working with: if writing something that works
+other files - make sure they are also used somewhere in the same frontend you're working with: if writing something that works
 with the C frontend (like the plugin described in this article), don't use functions that aren't used anywhere in that frontend,
 otherwise it's not unlikely you'll bump into similar cases.
 

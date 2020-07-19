@@ -31,7 +31,7 @@ static bool is_assert_fail_cond_expr(tree expr) {
         TREE_CODE(expr_else) == CALL_EXPR &&
         TREE_CODE(CALL_EXPR_FN(expr_else)) == ADDR_EXPR &&
         TREE_CODE(TREE_OPERAND(CALL_EXPR_FN(expr_else), 0)) == FUNCTION_DECL &&
-        // IDENTIFIER_POINTER(DECL_NAME(...)) gets the (null-terminated) name string from of declaration.
+        // IDENTIFIER_POINTER(DECL_NAME(...)) gets the (null-terminated) name string from a declaration.
         0 == strcmp("__assert_fail", IDENTIFIER_POINTER(DECL_NAME(TREE_OPERAND(CALL_EXPR_FN(expr_else), 0))))
     );
 }
